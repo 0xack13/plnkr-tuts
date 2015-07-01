@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="ngExampleApp">
+
+  <head>
+    <script data-require="angular.js@*" data-semver="2.0.0-alpha.26" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+
+  <body ng-controller="ngExampleCtrl">
+    {{ data }}
+    Status is {{status}}
+    <div>
+    <h1>Simple Github API Webapp</h1>
+    <p>Enter a single Github username below and click the button to display profile info.</p>
+ 
+    <input type="text" id="ghusername" ng-model="username" placeholder="Github username...">
+    <a href="#" id="ghsubmitbtn" ng-click="getGitInfo()">Pull User Data</a>
+    <div id="ghapidata" class="clearfix"></div>
+</div>
+
+    <div ng-show="loaded">
+   <h2> {{user.name}}
+      <span class="smallname">(@<a href="{{user.html_url}}" target="_blank"> {{user.login}} </a>)</span>
+   </h2>
+ 
+   <div class="ghcontent">
+      <div class="avi">
+         <a href="{{ user.html_url }}" target="_blank">
+            <img src="{{ user.avatar_url }}" width="80" height="80" alt="{{ user.login }}"></a>
+      </div>
+      Followers: {{ user.followers }} - Following: {{ user.following }}<br>Repos: {{ user.public_repos }}
+   </div>
+</div>
+
+    <p>{{ users }}</p>
+    
+    Search: <input ng-model="query">
+    Sort by:
+    <select ng-model="orderProp">
+      <option value="name">Alphabetical</option>
+      <option value="snippet">Alphabetical</option>
+      <option value="age">Newest</option>
+    </select>
+
+  <ul>
+    <li ng-repeat="user in users | filter:query | orderBy: orderProp">
+      <span>{{user.name}}</span>
+      <p>{{user.snippet}}</p>
+    </li>
+  </ul>
+  
+  </body>
+
+</html>
